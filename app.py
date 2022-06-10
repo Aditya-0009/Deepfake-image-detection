@@ -6,6 +6,10 @@ import os
 import numpy as np
 from PIL import Image
 import zipfile
+import cv2
+from pytorch_grad_cam import GradCAM
+from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
+from pytorch_grad_cam.utils.image import show_cam_on_image
 
 with zipfile.ZipFile("examples.zip","r") as zip_ref:
     zip_ref.extractall(".")
@@ -25,7 +29,7 @@ model = InceptionResnetV1(
     device=DEVICE
 )
 
-checkpoint = torch.load("resnetinceptionv1_epoch_32.pth", map_location=torch.device('cpu'))
+checkpoint = torch.load("resnetinceptionv1_epoch_32.pth")
 model.load_state_dict(checkpoint['model_state_dict'])
 model.to(DEVICE)
 model.eval()
@@ -52,11 +56,24 @@ def predict(input_image:Image.Image, true_label:str):
     face = F.interpolate(face, size=(256, 256), mode='bilinear', align_corners=False)
     
     # convert the face into a numpy array to be able to plot it
-    face_image_to_plot = face.squeeze(0).permute(1, 2, 0).cpu().detach().int().numpy()
+    prev_face = face.squeeze(0).permute(1, 2, 0).cpu().detach().int().numpy()
+    prev_face = prev_face.astype('uint8')
 
     face = face.to(DEVICE)
     face = face.to(torch.float32)
     face = face / 255.0
+    face_image_to_plot = face.squeeze(0).permute(1, 2, 0).cpu().detach().int().numpy()
+
+    target_layers=[model.block8.branch1[-1]]
+    use_cuda = True if torch.cuda.is_available() else False
+    cam = GradCAM(model=model, target_layers=target_layers, use_cuda=use_cuda)
+    targets = [ClassifierOutputTarget(0)]
+
+    grayscale_cam = cam(input_tensor=face, targets=targets, eigen_smooth=True)
+    grayscale_cam = grayscale_cam[0, :]
+    visualization = show_cam_on_image(face_image_to_plot, grayscale_cam, use_rgb=True)
+    face_with_mask = cv2.addWeighted(prev_face, 1, visualization, 0.5, 0)
+
     with torch.no_grad():
         output = torch.sigmoid(model(face).squeeze(0))
         prediction = "real" if output.item() < 0.5 else "fake"
@@ -68,7 +85,7 @@ def predict(input_image:Image.Image, true_label:str):
             'real': real_prediction,
             'fake': fake_prediction
         }
-    return confidences, true_label, face_image_to_plot
+    return confidences, true_label, face_with_mask
 
 interface = gr.Interface(
     fn=predict,
@@ -79,7 +96,7 @@ interface = gr.Interface(
     outputs=[
         gr.outputs.Label(label="Class"),
         "text",
-        gr.outputs.Image(label="Face")
+        gr.outputs.Image(label="Face with Explainability")
     ],
     examples=[[examples[i]["path"], examples[i]["label"]] for i in range(10)]
 ).launch()
