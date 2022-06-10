@@ -29,7 +29,7 @@ model = InceptionResnetV1(
     device=DEVICE
 )
 
-checkpoint = torch.load("resnetinceptionv1_epoch_32.pth")
+checkpoint = torch.load("resnetinceptionv1_epoch_32.pth", map_location=torch.device('cpu'))
 model.load_state_dict(checkpoint['model_state_dict'])
 model.to(DEVICE)
 model.eval()
