@@ -2,3 +2,5 @@ gradio==3.0.9
 Pillow
 facenet-pytorch==2.5.2
 torch==1.11.0
+opencv-python
+grad-cam
