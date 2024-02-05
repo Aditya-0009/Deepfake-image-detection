@@ -95,7 +95,7 @@ interface = gr.Interface(
     outputs=[
         gr.outputs.Label(label="Class"),
         "text",
-        gr.outputs.Image(label="Face with Explainability")
+        gr.outputs.Image(label="Face with Explainability", type="numpy")
     ],
     examples=[[examples[i]["path"], examples[i]["label"]] for i in range(10)]
 ).launch()
