@@ -65,8 +65,7 @@ def predict(input_image:Image.Image, true_label:str):
     face_image_to_plot = face.squeeze(0).permute(1, 2, 0).cpu().detach().int().numpy()
 
     target_layers=[model.block8.branch1[-1]]
-    use_cuda = True if torch.cuda.is_available() else False
-    cam = GradCAM(model=model, target_layers=target_layers, use_cuda=use_cuda)
+    cam = GradCAM(model=model, target_layers=target_layers)
     targets = [ClassifierOutputTarget(0)]
 
     grayscale_cam = cam(input_tensor=face, targets=targets, eigen_smooth=True)
