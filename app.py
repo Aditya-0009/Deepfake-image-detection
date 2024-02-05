@@ -89,13 +89,14 @@ def predict(input_image:Image.Image, true_label:str):
 interface = gr.Interface(
     fn=predict,
     inputs=[
-        gr.inputs.Image(label="Input Image", type="pil"),
-        "text"
+        gr.components.Image(label="Input Image", type="pil"),  # Updated component import and type
+        gr.components.Text(label="Your Text Input")  # Updated component import
     ],
     outputs=[
-        gr.outputs.Label(label="Class"),
-        "text",
-        gr.outputs.Image(label="Face with Explainability", type="numpy")
+        gr.components.Label(label="Class"),  # Updated component import
+        gr.components.Text(label="Your Text Output"),  # Updated component import
+        gr.components.Image(label="Face with Explainability", type="numpy")  # Updated component import and type
     ],
-    examples=[[examples[i]["path"], examples[i]["label"]] for i in range(10)]
+    examples=[[examples[i]["path"], examples[i]["label"]] for i in range(10)],
+    cache_examples=True  # Adjusted according to the new parameter for caching examples if needed
 ).launch()
