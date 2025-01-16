@@ -1,0 +1,5 @@
+Input Image,True Label,Prediction,True Label,Face with Explainability,flag,username,timestamp
+flagged\Input Image\961202ad9ebadbbda22f\rashmika-deepfake-vid.webp,,"{""label"": null, ""confidences"": null}",,,,,2024-09-11 00:35:03.562813
+flagged\Input Image\0328780ad1065ffd5615\Jhanvi Mia Deepfake.png,"{""label"": ""fake"", ""confidences"": [{""label"": ""fake"", ""confidence"": 0.965970516204834}, {""label"": ""real"", ""confidence"": 0.034029483795166016}]}",,,,2024-11-09 18:20:27.803689
+flagged\Input Image\dc2026b6b429494a6004\image 2.webp,"{""label"": ""real"", ""confidences"": [{""label"": ""real"", ""confidence"": 0.9848495405167341}, {""label"": ""fake"", ""confidence"": 0.015150459483265877}]}",,,,2024-11-13 16:59:30.433902
+flagged\Input Image\df206963f7347424ab0e\SRK RDJ Deepfake.jpg,"{""label"": ""fake"", ""confidences"": [{""label"": ""fake"", ""confidence"": 0.999411940574646}, {""label"": ""real"", ""confidence"": 0.0005880594253540039}]}",,,,2024-11-13 17:04:42.449933

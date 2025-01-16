@@ -12,7 +12,7 @@ from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
 from pytorch_grad_cam.utils.image import show_cam_on_image
 
 # Unzip example images
-with zipfile.ZipFile("examples.zip","r") as zip_ref:
+with zipfile.ZipFile("examples.zip", "r") as zip_ref:
     zip_ref.extractall(".")
 
 DEVICE = 'cuda:0' if torch.cuda.is_available() else 'cpu'
@@ -41,11 +41,8 @@ examples_names = os.listdir(EXAMPLES_FOLDER)
 examples = []
 for example_name in examples_names:
     example_path = os.path.join(EXAMPLES_FOLDER, example_name)
-
-    label = example_name.split('_')[0]
     example = {
-        'path': example_path,
-        'label': label
+        'path': example_path
     }
     examples.append(example)
 np.random.shuffle(examples)  # Shuffle examples
@@ -93,9 +90,12 @@ def predict(input_image: Image.Image):
     
     return confidences, face_with_mask
 
+# Gradio Interface
 interface = gr.Interface(
     fn=predict,
-    inputs=[gr.components.Image(label="Input Image", type="pil")],
+    inputs=[
+        gr.components.Image(label="Input Image", type="pil"),
+    ],
     outputs=[
         gr.components.Label(label="Class"),
         gr.components.Image(label="Face with Explainability", type="numpy")
@@ -106,5 +106,4 @@ interface = gr.Interface(
     description="This system uses a deep learning model (InceptionResNetV1) pre-trained on VGGFace2 to classify images as 'real' or 'fake'. The model's predictions are explained using Grad-CAM for visual interpretability, highlighting important regions in the image that contributed to the decision.",
     theme="compact",
     article="Developed by Aditya Raj, Sanjana Nayak, Rajvardhan Singh Sirohi for the 'Deepfake Image Detection'. \nThis tool demonstrates AI's power in real-time image classification and explainability using Grad-CAM and facial recognition."
-).launch(share=True)
-
+).launch()

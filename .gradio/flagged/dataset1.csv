@@ -1,0 +1,3 @@
+Input Image,Class,Face with Explainability,timestamp
+.gradio\flagged\Input Image\b8f07ab38793262e7879\SRK SANJU Deepfake.jpg,"{""label"": ""real"", ""confidences"": [{""label"": ""real"", ""confidence"": 0.7749923169612885}, {""label"": ""fake"", ""confidence"": 0.22500768303871155}]}",.gradio\flagged\Face with Explainability\a116dfef2250c39c137e\image.webp,2024-11-18 17:31:52.944280
+.gradio\flagged\Input Image\686aeec4e7de2087619b\SRK SANJU Deepfake.jpg,"{""label"": ""real"", ""confidences"": [{""label"": ""real"", ""confidence"": 0.7749923169612885}, {""label"": ""fake"", ""confidence"": 0.22500768303871155}]}",.gradio\flagged\Face with Explainability\796c7b0cef1baeb95203\image.webp,2024-11-21 08:45:18.741962
