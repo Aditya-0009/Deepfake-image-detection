@@ -93,18 +93,28 @@ def predict(input_image: Image.Image):
     
     return confidences, face_with_mask
 
+# Create the interface for the deepfake detection app
 interface = gr.Interface(
-    fn=predict,
-    inputs=[gr.components.Image(label="Input Image", type="pil")],
+    fn=predict,  # The function to run for predictions
+    inputs=[gr.Image(label="📸 Input Image", type="pil")],  # Image input component with icon
     outputs=[
-        gr.components.Label(label="Class"),
-        gr.components.Image(label="Face with Explainability", type="numpy")
+        gr.Label(label="🔍 Class"),  # Output: Prediction label (real/fake) with icon
+        gr.Image(label="🧑‍⚖️ Face with Explainability", type="numpy")  # Output: Face with Grad-CAM explanation
     ],
-    examples=[[examples[i]["path"]] for i in range(10)],  # Horizontal layout
-    cache_examples=True,
-    title="Deepfake Image Detection",
-    description="This system uses a deep learning model (InceptionResNetV1) pre-trained on VGGFace2 to classify images as 'real' or 'fake'. The model's predictions are explained using Grad-CAM for visual interpretability, highlighting important regions in the image that contributed to the decision.",
-    theme="compact",
-    article="Developed by Aditya Raj, Sanjana Nayak, Rajvardhan Singh Sirohi for the 'Deepfake Image Detection'. \nThis tool demonstrates AI's power in real-time image classification and explainability using Grad-CAM and facial recognition."
-).launch(share=True)
-
+    examples=[[examples[i]["path"]] for i in range(10)],  # Examples for user to try (horizontal layout)
+    cache_examples=True,  # Cache examples for faster load time
+    title="🌟 Deepfake Image Detection 🌟",  # Title with icon
+    description=(
+        "<b style='font-size:18px;'>This system uses a deep learning model (InceptionResNetV1) pre-trained on VGGFace2 "
+        "<b style='font-size:18px;'>to classify images as 'real' or 'fake'. The model's predictions are explained using "
+        "<b style='font-size:18px;'>Grad-CAM, which highlights the important regions in the image that contributed to the decision."
+    ),  # Simplified description
+    theme="huggingface",  # Use Hugging Face theme
+    article=(
+        "## 🔍 Overview\n"
+        "<b style='font-size:18px;'>This tool uses AI to classify images as real or fake and also explains the decision. It uses the **InceptionResNetV1** model for classification and **Grad-CAM** for visualizing which parts of the image helped make the decision.\n\n"
+        "**<b style='font-size:18px;'>Developed by:**\n"
+        "<b style='font-size:25px;'>Aditya Raj, Sanjana Nayak, Shreeya Pandey, Shivam Garg</b>\n\n"  # Increased font size for the credits
+        "<b style='font-size:18px;'>This system not only detects deepfakes but also helps you understand why the AI made that decision."
+    )  # Simplified and direct article
+).launch(share=True)  # Launch the interface with a shareable link

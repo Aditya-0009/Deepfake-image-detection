@@ -24,19 +24,12 @@
 - **VGGFace2**: Dataset for pre-training the InceptionResNetV1 model.
 
 ---
+## 🖼️ Visual of the Tool
 
-## 🖼️ Screenshots
+Here’s a snapshot of the tool in action:
 
-Here are some visuals of the tool in action:
-
-![Input Example](Screenshots/Input.png)  
-An example input image uploaded for classification.
-
-![Output Example](Screenshots/Output.png)  
-The classified output with Grad-CAM explainability highlighting important regions.
-
-![Examples](Screenshots/Examples.png)  
-A preview of the examples gallery for testing.
+![Homepage](home.png)  
+The homepage demonstrates how the deepfake detection system works. Users can upload an image for classification, and the model predicts whether the image is "Real" or "Fake." It also provides Grad-CAM explainability to highlight critical regions influencing the decision.
 
 ---
 
