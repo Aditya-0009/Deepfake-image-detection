@@ -53,7 +53,7 @@ git clone https://github.com/Aditya-0009/Deepfake-Detection.git
 
 ## 🙏 Support
 
-If you encounter any issues, feel free to open an Issue in the GitHub repository, and I’ll get back to you as soon as possible.
+If you encounter any issues, feel free to email me, and I’ll get back to you as soon as possible.
 
 ---
 
